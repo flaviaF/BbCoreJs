@@ -33,6 +33,7 @@ define(
 
             inputClass: '.revision-input',
             generalInputClass: '.general-revision-input',
+            events: ['#new-page', '.global-save', '#bundle-toolbar-contentSelector', '.bundle-toolbar-global-validate', '.bundle-toolbar-global-cancel', "#btn-show-mediaLibrary", "#keyword-editor"],
 
             /**
              * Init of event manaager
@@ -151,6 +152,45 @@ define(
 
                     this.changeParentState(current.data('parent-id'), state);
                 }
+            },
+
+            disableEvents: function () {
+                var i;
+                jQuery('div.bb5-content-actions').each(function () {
+                    var self = this;
+                    jQuery(self).find('a').each(function () {
+                        jQuery(this).attr("disabled", "disabled");
+                    });
+                });
+                jQuery('div.bb-content').each(function () {
+                    jQuery(this).attr("disabled", "true");
+                    var self = this;
+                    jQuery(self).find('a').each(function () {
+                        jQuery(this).attr("disabled", "true");
+                    });
+                });
+
+                for (i = 0; i < this.events.length; i = i + 1) {
+                    jQuery(this.events[i]).attr('disabled', 'disabled');
+                }
+            },
+
+            enableEvents: function () {
+                var i;
+                for (i = 0; i < this.events.length; i = i + 1) {
+                    jQuery('#contribution-tab ' + this.events[i]).removeAttr('disabled');
+                }
+
+                jQuery('div.bb5-content-actions').each(function () {
+                    var self = this;
+                    jQuery(self).find('a').each(function () {
+                        jQuery(this).removeAttr("disabled");
+                    });
+                });
+
+                jQuery('div.bb-content').each(function () {
+                    jQuery(this).removeAttr("disabled");
+                });
             }
         });
 

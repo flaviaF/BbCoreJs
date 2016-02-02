@@ -17,7 +17,7 @@
  * along with BackBee. If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('tb.component/popin/main', ['Core', 'tb.component/popin/PopIn', 'jquery', 'component!translator', 'jqueryui', 'jsclass'], function (Core, PopIn, jQuery, Translator) {
+define('tb.component/popin/main', ['Core', 'tb.component/popin/PopIn', 'jquery', 'component!translator', 'jqueryui', 'jsclass', 'revisionselector.managers/Event'], function (Core, PopIn, jQuery, Translator, EventManager) {
     'use strict';
 
     /**
@@ -83,6 +83,7 @@ define('tb.component/popin/main', ['Core', 'tb.component/popin/PopIn', 'jquery',
                 options.appendTo = '#' + this.containerId;
 
                 popIn.setOptions(options);
+                EventManager.enableEvents();
 
                 return popIn;
             }
@@ -126,6 +127,7 @@ define('tb.component/popin/main', ['Core', 'tb.component/popin/PopIn', 'jquery',
              * Add display() method to Core.PopIn to call Core.PopInManager::display()
              */
             popIn.display = function () {
+                EventManager.disableEvents();
                 self.display(popIn);
             };
             /**

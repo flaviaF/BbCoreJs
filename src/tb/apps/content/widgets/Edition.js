@@ -240,16 +240,17 @@ define(
              */
             edit: function () {
                 var self = this;
+                if (this.content.jQueryObject[0].disabled === 'undefined') {
+                    this.popin[this.content.uid].display();
+                    this.popin[this.content.uid].mask();
 
-                this.popin[this.content.uid].display();
-                this.popin[this.content.uid].mask();
-
-                this.getFormConfig().done(function (config) {
-                    FormBuilder.renderForm(config).done(function (html) {
-                        self.popin[self.content.uid].setContent(html);
-                        self.popin[self.content.uid].unmask();
+                    this.getFormConfig().done(function (config) {
+                        FormBuilder.renderForm(config).done(function (html) {
+                            self.popin[self.content.uid].setContent(html);
+                            self.popin[self.content.uid].unmask();
+                        });
                     });
-                });
+                }
             },
 
             onSubmit: function (data, form) {

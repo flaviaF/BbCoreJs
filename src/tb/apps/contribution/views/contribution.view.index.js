@@ -3,9 +3,10 @@ define(
         'Core',
         'jquery',
         'Core/Renderer',
-        'text!contribution/tpl/index'
+        'text!contribution/tpl/index',
+        'revisionselector.managers/Event'
     ],
-    function (Core, jQuery, Renderer, template) {
+    function (Core, jQuery, Renderer, template, EventManager) {
 
         'use strict';
 
@@ -46,6 +47,7 @@ define(
             },
 
             showContentSelector: function () {
+                EventManager.disableEvents();
                 var popinId = 'bb-page-content-selector',
                     config = {
                         do_loading: true,
@@ -87,6 +89,7 @@ define(
             },
 
             showNewPage: function () {
+                EventManager.disableEvents();
                 var popinId = 'bb-new-page',
                     config = {
                         'parent_uid': Core.get('page.uid'),
@@ -103,14 +106,17 @@ define(
             },
 
             showMediaLibrary: function (config) {
+                EventManager.disableEvents();
                 return Core.ApplicationManager.invokeService('contribution.main.showMediaLibrary', config);
             },
 
             showKwEditor: function () {
+                EventManager.disableEvents();
                 Core.ApplicationManager.invokeService('contribution.main.showKeywordEditor');
             },
 
             manageMenu: function (event) {
+                EventManager.disableEvents();
                 Core.ApplicationManager.invokeService('contribution.main.manageTabMenu', jQuery(event.currentTarget));
             },
 
@@ -118,6 +124,7 @@ define(
              * Call service `save` into main application
              */
             manageSave: function () {
+                EventManager.disableEvents();
                 Core.ApplicationManager.invokeService('main.main.save');
             },
 
@@ -125,6 +132,7 @@ define(
              * Call service `validate` into main application
              */
             manageValidate: function () {
+                EventManager.disableEvents();
                 Core.ApplicationManager.invokeService('main.main.validate');
             },
 
@@ -132,6 +140,7 @@ define(
              * Call service `cancel` into main application
              */
             manageCancel: function () {
+                EventManager.disableEvents();
                 Core.ApplicationManager.invokeService('main.main.cancel');
             },
 

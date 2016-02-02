@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with BackBee. If not, see <http://www.gnu.org/licenses/>.
  */
-define('tb.component/popin/PopIn', ['jquery', 'jsclass'], function (jQuery) {
+define('tb.component/popin/PopIn', ['jquery', 'jsclass', 'revisionselector.managers/Event'], function (jQuery, EventManager) {
     'use strict';
 
     /**
@@ -149,7 +149,7 @@ define('tb.component/popin/PopIn', ['jquery', 'jsclass'], function (jQuery) {
                 if (this.state !== DESTROY_STATE) {
                     this.state = HIDDEN_STATE;
                 }
-
+                EventManager.enableEvents();
                 return this;
             },
 

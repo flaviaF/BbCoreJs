@@ -110,6 +110,7 @@ define(
 
                     this.shown = true;
                 } else {
+                    console.log('show dial');
                     this.popin.display();
                 }
             },
@@ -158,12 +159,12 @@ define(
             /**
              * Bind events into popin
              */
-            bindEvents: function () {
-                jQuery('#' + this.popin.getId()).on(
-                    'click',
-                    this.toggleClasses,
-                    jQuery.proxy(this.toggleHeader, this)
-                );
+            bindEvents: function () {		
+		    jQuery('#' + this.popin.getId()).on(
+			'click',
+			this.toggleClasses,
+			jQuery.proxy(this.toggleHeader, this)
+		    );
             },
 
             /**
@@ -173,13 +174,16 @@ define(
              */
             toggleHeader: function (event) {
                 var currentTarget = jQuery(event.currentTarget);
+                console('bind to popin'+this.popin.getId());
 
-                jQuery('#' + this.popin.getId())
-                    .find('.bb5-data-toggle.open')
-                    .not(currentTarget.parent())
-                    .removeClass('open');
+                if(jQuery(currentTarget).attr('disabled') !== 'disabled') {
+                    jQuery('#' + this.popin.getId())
+                         .find('.bb5-data-toggle.open')
+                         .not(currentTarget.parent())
+                         .removeClass('open');
 
-                currentTarget.parent().toggleClass('open');
+                    currentTarget.parent().toggleClass('open');
+                }
             },
 
             /**

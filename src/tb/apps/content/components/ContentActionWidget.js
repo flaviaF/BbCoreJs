@@ -5,7 +5,11 @@ define(['jquery', 'text!content/tpl/content-action', 'jsclass'], function (jQuer
             this.content = null;
             this.widget = jQuery(template).clone();
             this.contentContextMenu =  jQuery(template).clone();
-            jQuery(this.widget).addClass('content-actions');
+            if (jQuery(this.widget).attr('disabled') === 'disabled') {
+                jQuery(this.widget).addClass('content-actions disabled');
+            } else {
+                jQuery(this.widget).addClass('content-actions');
+            }
             this.bindCxtMenuEvent();
         },
 
@@ -84,7 +88,8 @@ define(['jquery', 'text!content/tpl/content-action', 'jsclass'], function (jQuer
             actions = (jQuery.isArray(actions)) ? actions : [actions];
             var actionInfos,
                 button,
-                btnCtn = document.createDocumentFragment();
+                btnCtn = document.createDocumentFragment(),
+                self = this;
 
             jQuery.each(actions, function (i) {
                 actionInfos = actions[i];
@@ -92,6 +97,9 @@ define(['jquery', 'text!content/tpl/content-action', 'jsclass'], function (jQuer
                     button = jQuery("<a></a>").clone();
                     button.attr("title", actionInfos.label);
                     button.attr('draggable', 'true');
+                    if (jQuery(self.widget.parent()).attr('disabled') === 'disabled') {
+                        button.attr('disabled', 'disabled');
+                    }
                     button.addClass(actionInfos.ico);
                 } else {
                     if (actionInfos.hideInContextMenu === true) {
@@ -101,6 +109,7 @@ define(['jquery', 'text!content/tpl/content-action', 'jsclass'], function (jQuer
                     var icoNode = jQuery('<i/>').addClass(actionInfos.ico);
                     button.append(jQuery('<button/>').append(icoNode).attr({"title" : actionInfos.label}).append(" " + actionInfos.label));
                 }
+                console.log(actionInfos.cmd.execute);
                 jQuery(button).on("click", actionInfos.cmd.execute);
                 btnCtn.appendChild(jQuery(button).get(0));
             });
