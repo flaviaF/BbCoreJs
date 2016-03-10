@@ -36,6 +36,7 @@ define(
 
             mainSelector: Core.get('wrapper_toolbar_selector'),
             dropzoneSelector: '.dropzone-file',
+            fileDetails: '.imageDetails',
 
             defaultDropzoneConfig: {
                 url: Core.get('api_base_url') + '/resource/upload',
@@ -72,7 +73,10 @@ define(
                         input = form.find('input[name=' + self.element.getKey() + ']'),
                         inputPath = form.find('span.' + self.element.getKey() + '_path'),
                         inputSrc = form.find('span.' + self.element.getKey() + '_src'),
-                        inputOriginalName = form.find('span.' + self.element.getKey() + '_originalname');
+                        inputOriginalName = form.find('span.' + self.element.getKey() + '_originalname'),
+                        inputSize = form.find('span.' + self.element.getKey() + '_size'),
+                        inputWidth = form.find('span.' + self.element.getKey() + '_width'),
+                        inputHeight = form.find('span.' + self.element.getKey() + '_height');
 
                     self.buildValue(dropzone, self.element.value, input);
 
@@ -110,6 +114,26 @@ define(
                             thumbnail;
 
                         inputPath.text(response.path);
+                        if (response.size !== undefined && response.size !== '' && response.size !== null && response.size !== 0) {
+                            inputSize.text(response.size + ' KB');
+                            inputSize.removeClass('hidden');
+                        } else {
+                            inputSize.addClass('hidden');
+                        }
+                        if (response.width !== undefined && response.width !== '' && response.width !== null && response.width !== 0) {
+                            inputWidth.text('L: ' + response.width + ', ');
+                            inputWidth.removeClass('hidden');
+                        } else {
+                            inputWidth.addClass('hidden');
+                        }
+                        if (response.height !== undefined && response.height !== '' && response.height !== null && response.height !== 0) {
+                            inputHeight.text('H: ' + response.height + ', ');
+                            inputHeight.removeClass('hidden');
+                        } else {
+                            inputHeight.addClass('hidden');
+                        }
+                        jQuery(self.fileDetails).removeClass('hidden');
+
                         inputOriginalName.text(response.originalname);
 
                         if (response.src !== undefined) {
@@ -135,6 +159,10 @@ define(
                             inputPath.text('');
                             inputSrc.text('');
                             inputOriginalName.text('');
+                            inputSize.text('');
+                            inputWidth.text('');
+                            inputHeight.text('');
+                            jQuery(self.fileDetails).addClass('hidden');
                             input.val('updated');
                         }
                     });

@@ -1,4 +1,10 @@
 <div class="dropzone-area">
+    <div class="imageDetails hidden">
+	<label for="{{ element.getKey() }}" class="label">{{ element.getLabel() }} details</label>
+	<span class="{{ element.getKey() }}_width"></span>
+	<span class="{{ element.getKey() }}_height"></span>
+	<span class="{{ element.getKey() }}_size"></span>
+    </div>
     <label for="{{ element.getKey() }}" class="label">{{ element.getLabel() }}</label>
     <div class="dropzone dropzone-file">
     </div>
