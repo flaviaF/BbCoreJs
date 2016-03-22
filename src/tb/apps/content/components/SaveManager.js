@@ -35,14 +35,20 @@ define(
 
         var SaveManager = new JS.Class({
 
+            contentsSavedAutomatically : 0,
+
             /**
              * Save all content updated
              */
-            save: function () {
+            save: function (config) {
                 var contents = this.getContentsToSave(),
                     promises = [],
                     content,
                     key;
+
+                if (config && config.from === 'btn') {
+                    this.contentsSavedAutomatically = this.contentsSavedAutomatically + contents.length;
+                }
 
                 for (key in contents) {
                     if (contents.hasOwnProperty(key)) {
@@ -53,6 +59,14 @@ define(
                 }
 
                 return jQuery.when.apply(undefined, promises).promise();
+            },
+
+            getContentsSavedAutomatically: function () {
+                return this.contentsSavedAutomatically;
+            },
+
+            clearContentsSavedAutomatically: function () {
+                this.contentsSavedAutomatically = 0;
             },
 
             getContentsToSave: function () {

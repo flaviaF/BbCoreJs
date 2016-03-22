@@ -116,7 +116,7 @@ define(
 
                 // Listen event save
                 Core.Mediator.subscribe('on:content:save:click', function () {
-                    Core.ApplicationManager.invokeService('content.main.save', true);
+                    Core.ApplicationManager.invokeService('content.main.save', true, {'from': 'btn'});
                 });
 
                 Core.Mediator.subscribe('on:content:validate:click', function () {

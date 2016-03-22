@@ -218,22 +218,26 @@ define(
             /**
              * Call method save into SaveManager
              */
-            saveService: function (req, confirm) {
+            saveService: function (req, confirm, config) {
                 var translator = req('component!translator'),
                     nbContents = SaveManager.getContentsToSave().length,
+                    nbContentsAutoSaved = SaveManager.getContentsSavedAutomatically(),
                     dfd = new jQuery.Deferred();
 
                 if (confirm !== true) {
-                    SaveManager.save().done(function () {
+                    SaveManager.save(config).done(function () {
                         dfd.resolve(nbContents);
                     });
                 } else {
-
                     if (nbContents > 0) {
                         SaveManager.save().done(function () {
                             notify.success(nbContents + ' ' + translator.translate('content_saved_sentence' + ((nbContents > 1) ? '_plural' : '')));
                             dfd.resolve(nbContents);
                         });
+                    } else if (nbContentsAutoSaved > 0) {
+                        notify.success(translator.translate('modification_already_saved'));
+                        SaveManager.clearContentsSavedAutomatically();
+                        dfd.resolve(nbContentsAutoSaved);
                     } else {
                         notify.warning(translator.translate('no_content_save'));
                         dfd.resolve();
