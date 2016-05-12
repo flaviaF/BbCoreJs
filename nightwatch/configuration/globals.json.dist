@@ -36,7 +36,7 @@
         },
         "pageTree" : {
             "searchForPage" : "Sport",
-            "createNewPage" : "Create new page test",
+            "createNewPage" : "create new page test",
             "position" : {
                 "x" : 10,
                 "y" : 200

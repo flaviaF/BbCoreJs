@@ -18,38 +18,26 @@
  */
 
 /**
- * Custom command for setting a class on a DOM element
- * If no DOM element is provided that it adds the class on the body tag
+ * Custom command for deleting the current page
  *
  * @category    NightWatch
  * @subcategory CustomCommands
  * @copyright   Lp digital system
- * @author      Marian Hodis <marian.hodis@lp-digital.fr>
+ * @author      flavia.fodor@lp-digital.fr
  */
 
-module.exports.command = function (DOMElement, classToAdd, callback) {
+module.exports.command = function () {
     'use strict';
 
-    var self = this;
+    var newPageObject = this.page.newPage();
 
-    this.execute(
-        function (DOMElement, classToAdd) {
-            if (DOMElement) {
-                document.querySelector(DOMElement).classList.add(classToAdd);
-            } else {
-                document.body.classList.add(classToAdd);
-            }
-            return true;
-        },
-
-        [DOMElement, classToAdd],
-
-        function (result) {
-            if (typeof callback === 'function') {
-                callback.call(self, result);
-            }
-        }
-    );
+    newPageObject
+        .waitForElementVisible('@tabPage', this.globals.loadTime.longWait)
+        .click('@tabPage')
+        .waitForElementVisible('@deletePageBtn', this.globals.loadTime.longWait)
+        .click('@deletePageBtn')
+        .waitForElementVisible('@formDeletePage', this.globals.loadTime.mediumWait)
+        .click('@formDeletePageBtn');
 
     return this;
 };
