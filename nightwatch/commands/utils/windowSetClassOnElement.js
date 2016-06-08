@@ -35,7 +35,7 @@ module.exports.command = function (DOMElement, classToAdd, callback) {
     this.execute(
         function (DOMElement, classToAdd) {
             if (DOMElement) {
-                window.querySelector(DOMElement).classList.add(classToAdd);
+                document.querySelector(DOMElement).classList.add(classToAdd);
             } else {
                 document.body.classList.add(classToAdd);
             }

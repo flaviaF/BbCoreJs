@@ -18,7 +18,7 @@
  */
 
 /**
- * Content object
+ * Tests
  *
  * @category    NightWatch
  * @subcategory Tests
