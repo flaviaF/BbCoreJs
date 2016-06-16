@@ -26,7 +26,7 @@
  * @author      flavia.fodor@lp-digital.fr
  */
 
-module.exports.command = function (callback) {
+module.exports.command = function (username, password, callback) {
     'use strict';
 
     var self = this,
@@ -39,9 +39,23 @@ module.exports.command = function (callback) {
             .openLoginPopin()
             .pause(this.globals.loadTime.loginPopin);
 
+        if (username !== undefined) {
+            loginSection
+                .setValue('@username', username);
+        } else {
+            loginSection
+                .setValue('@username', this.globals.login.realUser.username);
+        }
+
+        if (password !== undefined) {
+            loginSection
+                .setValue('@password', password);
+        } else {
+            loginSection
+                .setValue('@password', this.globals.login.realUser.password);
+        }
+
         loginSection
-            .setValue('@username', this.globals.login.realUser.username)
-            .setValue('@password', this.globals.login.realUser.password)
             .click('@submit')
             .api.pause(this.globals.loadTime.loginPopin);
 

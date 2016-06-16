@@ -18,10 +18,10 @@
  */
 
 /**
- * Login object
+ * Toolbar object
  *
  * @category    NightWatch
- * @subcategory PageObjects
+ * @subcategory ToolbarObjects
  * @copyright   Lp digital system
  * @author      
  */
@@ -54,6 +54,15 @@ module.exports = {
                         },
                         dropDownOpen: {
                             selector: 'div.dropdown.open'
+                        },
+                        editBtn: {
+                            selector: 'a.bb-service[data-service="editCurrent"]'
+                        },
+                        changePasswordBtn: {
+                            selector: 'a.bb-service[data-service="changePassword"]'
+                        },
+                        logout: {
+                            selector: 'a.bb-service[data-service="logout"]'
                         }
                     }
                 }

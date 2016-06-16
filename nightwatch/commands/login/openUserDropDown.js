@@ -39,7 +39,10 @@ module.exports.command = function () {
                 userSettingsSection
                         .assert.elementPresent('@topMostLogin')
                         .click('@topMostLogin')
-                        .assert.elementPresent('@language');
+                        .assert.elementPresent('@language')
+                        .assert.elementPresent('@editBtn')
+                        .assert.elementPresent('@changePasswordBtn')
+                        .assert.elementPresent('@logout');
             }
 
         });
