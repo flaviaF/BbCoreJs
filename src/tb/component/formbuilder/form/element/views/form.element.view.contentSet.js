@@ -318,6 +318,7 @@ define(
                     if (contents !== undefined) {
                         config.contents = contents;
                     }
+                    config.hide = true;
                     this.widget = new this.DialogContentsList(config);
                 }
                 this.widget.show();

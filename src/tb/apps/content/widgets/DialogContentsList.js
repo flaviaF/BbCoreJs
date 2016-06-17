@@ -40,13 +40,13 @@ define(
 
             initialize: function (config) {
                 this.computeConfig(config);
-                this.createPopin();
+                this.createPopin(config);
             },
 
             /**
              * Create popin for parameters form
              */
-            createPopin: function () {
+            createPopin: function (config) {
                 var self = this;
                 this.popin = Popin.createPopIn({
                     open: function () {
@@ -58,7 +58,11 @@ define(
 
                     },
                     close: function () {
-                        self.destroy();
+                        if (true === config.hasOwnProperty('hide')) {
+                            self.hide(self.popIn);
+                        } else {
+                            self.destroy(self.popin);
+                        }
                     }
                 });
 
